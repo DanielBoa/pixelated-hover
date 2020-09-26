@@ -1,14 +1,11 @@
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d');
-const instances = [...document.querySelectorAll('[data-pixelated-hover]')];
-const pixelSize = 10;
+const instances = [...document.querySelectorAll<HTMLElement>('[data-pixelated-hover]')];
 
-instances.forEach((el) => {
-  const img = el.querySelector('img');
-
+instances.forEach((container) => {
+  const img = container.querySelector('img');
   if (!img) return;
-
-  img.addEventListener('load', createPixelatedHover);
+  img.addEventListener('load', () => createPixelatedHover(container, img));
 });
 
 function getIndexFromCoords(x: number, y: number, width: number) {
@@ -21,9 +18,7 @@ function getPixelData(imageData: ImageData, x: number, y: number) {
   return data.slice(i, i + 4);
 }
 
-function createPixelatedHover() {
-  const img: HTMLImageElement = this;
-  const container = img.parentElement;
+function createPixelatedHover(container: HTMLElement, img: HTMLImageElement) {
   const pixelSize = +(container.dataset?.pixelatedHover || '20');
   const pixelated = document.createElement('img');
   const { width: domWidth, height: domHeight } = img;
@@ -36,7 +31,7 @@ function createPixelatedHover() {
   ctx.drawImage(img, 0, 0, domWidth, domHeight);
   const originalImageData = ctx.getImageData(0, 0, domWidth, domHeight);
 
-  // create pixelated imageData
+  // create pixelated imageData using source imageData
   const pixelatedImageData = ctx.createImageData(cols, rows);
   for (let x = 0; x < cols; x++) {
     for (let y = 0; y < rows; y++) {
