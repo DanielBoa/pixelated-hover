@@ -10,6 +10,6 @@
   "scripts": {
     "dev": "parcel serve example.html",
     "example:clean": "rm -rf ./example", 
-    "example:build": "yarn example:clean && parcel build example.html --out-dir example --public-url ./example/"
+    "example:build": "yarn example:clean && parcel build example.html --out-dir example --public-url ./"
   }
 }
