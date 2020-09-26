@@ -1,2 +1,0 @@
-[data-pixelated-hover]{position:relative;display:block;overflow:hidden}[data-pixelated-hover]>img{width:100%;height:auto}[data-pixelated-hover]>img.__js-pixelated-hover__pixel-image{position:absolute;top:0;left:0;image-rendering:pixelated;image-rendering:crisp-edges;transition:opacity 1s ease-in-out}[data-pixelated-hover]:hover>img.__js-pixelated-hover__pixel-image{opacity:0}
-/*# sourceMappingURL=pixelated-hover.5ed71674.css.map */
