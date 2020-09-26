@@ -9,7 +9,7 @@
   height: auto;
 }
 
-[data-pixelated-hover] > img.__js-pixelated-hover__pixel-image {
+[data-pixelated-hover] > img.__pixelated {
   position: absolute;
   top: 0;
   left: 0;
@@ -18,6 +18,6 @@
   transition: opacity 1s ease-in-out;
 }
 
-[data-pixelated-hover]:hover > img.__js-pixelated-hover__pixel-image {
+[data-pixelated-hover]:hover > img.__pixelated {
   opacity: 0;
 }

@@ -8,55 +8,21 @@ instances.forEach((container) => {
   img.addEventListener('load', () => createPixelatedHover(container, img));
 });
 
-function getIndexFromCoords(x: number, y: number, width: number) {
-  return (y * (width * 4)) + (x * 4);
-}
-
-function getPixelData(imageData: ImageData, x: number, y: number) {
-  const { data, width } = imageData;
-  const i = getIndexFromCoords(x, y, width);
-  return data.slice(i, i + 4);
-}
-
 function createPixelatedHover(container: HTMLElement, img: HTMLImageElement) {
   const pixelSize = +(container.dataset?.pixelatedHover || '20');
-  const pixelated = document.createElement('img');
-  const { width: domWidth, height: domHeight } = img;
-  const cols = Math.floor(domWidth / pixelSize);
-  const rows = Math.floor(domHeight / pixelSize);
+  const previousPixelated = container.querySelector<HTMLImageElement>('img.__pixelated');
+  const pixelated = previousPixelated || document.createElement('img');
+  const width = Math.floor(img.width / pixelSize);
+  const height = Math.floor(img.height / pixelSize);
 
-  // draw image to canvas to inspect it's imageData
-  canvas.width = domWidth;
-  canvas.height = domHeight;
-  ctx.drawImage(img, 0, 0, domWidth, domHeight);
-  const originalImageData = ctx.getImageData(0, 0, domWidth, domHeight);
+  canvas.width = width;
+  canvas.height = height;
+  ctx.drawImage(img, 0, 0, width, height);
 
-  // create pixelated imageData using source imageData
-  const pixelatedImageData = ctx.createImageData(cols, rows);
-  for (let x = 0; x < cols; x++) {
-    for (let y = 0; y < rows; y++) {
-      const sx = Math.floor(((x + 1) * pixelSize) - (pixelSize / 2));
-      const sy = Math.floor(((y + 1) * pixelSize) - (pixelSize / 2));
-      const [r, g, b, a] = getPixelData(originalImageData, sx, sy);
-      const i = getIndexFromCoords(x, y, cols);
-
-      pixelatedImageData.data[i    ] = r;
-      pixelatedImageData.data[i + 1] = g;
-      pixelatedImageData.data[i + 2] = b;
-      pixelatedImageData.data[i + 3] = a;
-    }
-  }
-
-  // draw pixelated image to canvas
-  canvas.width = cols;
-  canvas.height = rows;
-  ctx.putImageData(pixelatedImageData, 0, 0);
-
-  // set src of pixelated img to base64 of pixelated imageData
-  pixelated.width = domWidth;
-  pixelated.height = domHeight;
   pixelated.src = canvas.toDataURL();
-  pixelated.classList.add('__js-pixelated-hover__pixel-image');
+  pixelated.classList.add('__pixelated');
 
-  container.appendChild(pixelated);
+  if (!previousPixelated) {
+    container.appendChild(pixelated);
+  }
 }
