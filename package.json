@@ -1,0 +1,15 @@
+{
+  "name": "pixelated-hover",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel": "^1.12.4",
+    "typescript": "^4.0.3"
+  },
+  "scripts": {
+    "dev": "parcel serve example.html",
+    "example:clean": "rm -rf ./example", 
+    "example:build": "yarn example:clean && parcel build example.html --out-dir example"
+  }
+}
