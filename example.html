@@ -21,7 +21,7 @@
       display: flex;
       min-height: 100vh;
       align-items: center;
-      padding: 20px;
+      padding: 40px 20px 20px 20px;
       flex-wrap: wrap;
     }
 
@@ -42,7 +42,7 @@
       font-family: consolas, monospace;
       padding: 0px 10px;
       font-size: 20px;
-      line-height: 2em;
+      line-height: 40px;
       float: left;
     }
   </style>
@@ -50,25 +50,18 @@
 <body>
   <main>
     <div data-pixelated-hover=40>
-      <img src="https://source.unsplash.com/960x960?vaporwave,city" />
+      <img crossorigin="anonymous" src="https://source.unsplash.com/960x960?vaporwave,city" />
     </div>
     <div data-pixelated-hover=10>
-      <img src="https://source.unsplash.com/960x960?vaporwave,bust" />
+      <img crossorigin="anonymous" src="https://source.unsplash.com/960x960?vaporwave,bust" />
     </div>
     <div data-pixelated-hover>
-      <img src="https://source.unsplash.com/960x960?gameboy,console" />
+      <img crossorigin="anonymous" src="https://source.unsplash.com/960x960?gameboy,console" />
     </div>
   </main>
 
   <nav><a href="https://github.com/DanielBoa/pixelated-hover">view on GitHub</a></nav>
-  
-  <script>
-    // The following is used to fix cross-origin issues for the example as the images are loaded via unsplash
-    // https://stackoverflow.com/questions/22097747/how-to-fix-getimagedata-error-the-canvas-has-been-tainted-by-cross-origin-data
-    Array.from(document.querySelectorAll('img')).forEach(function (img) {
-      img.crossOrigin = 'Anonymous';
-    });
-  </script>
+
   <script src="dist/pixelated-hover.js"></script>
 </body>
 </html>
