@@ -1,11 +1,10 @@
 ## ❤️=🟥 Pixelated Hover
 
-Creates a pixelated hover effect at runtime.
+Creates a pixelated image hover effect at runtime.
 
-[**See it in action here.**](http://danielboa.github.io/pixelated-hover/example/example.html)
+[**See it in action here.**](http://danielboa.github.io/pixelated-hover/example.html)
 
 _**NOTE**: This is not intended for production, just playing around._
-
 
 ### Example
 

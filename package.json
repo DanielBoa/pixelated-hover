@@ -1,15 +1,23 @@
 {
   "name": "pixelated-hover",
+  "author": {
+    "name": "Daniel Boa",
+    "email": "daniel.boa@gmail.com",
+    "url": "https://danielboa.com"
+  },
+  "description": "Creates a pixelated image hover effect at runtime.",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/pixelated-hover.js",
+  "style": "dist/pixelated-hover.css",
   "license": "MIT",
   "devDependencies": {
     "parcel": "^1.12.4",
     "typescript": "^4.0.3"
   },
   "scripts": {
-    "dev": "parcel serve example.html",
-    "example:clean": "rm -rf ./example", 
-    "example:build": "yarn example:clean && parcel build example.html --out-dir example --public-url ./"
+    "dev:clean": "rm -rf dev",
+    "dev": "yarn dev:clean && parcel serve example.html --out-dir dev",
+    "build:clean": "rm -rf dist",
+    "build": "yarn build:clean && parcel build src/* --no-source-maps"
   }
 }

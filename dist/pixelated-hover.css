@@ -1,0 +1,1 @@
+[data-pixelated-hover]{position:relative;display:block}[data-pixelated-hover]>img{display:block;width:100%;height:auto}[data-pixelated-hover]>img.__pixelated-hover-mask{position:absolute;top:0;left:0;image-rendering:pixelated;image-rendering:crisp-edges;transition:opacity .2s ease-in-out}[data-pixelated-hover]:hover>img.__pixelated-hover-mask{opacity:0}

@@ -1,28 +1,43 @@
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d');
-const instances = [...document.querySelectorAll<HTMLElement>('[data-pixelated-hover]')];
+const instancesToPixelate = [...document.querySelectorAll<HTMLElement>('[data-pixelated-hover]')];
 
-instances.forEach((container) => {
-  const img = container.querySelector('img');
-  if (!img) return;
-  img.addEventListener('load', () => createPixelatedHover(container, img));
-});
+type Base64ImageString = string;
 
-function createPixelatedHover(container: HTMLElement, img: HTMLImageElement) {
-  const pixelSize = +(container.dataset?.pixelatedHover || '20');
-  const previousPixelated = container.querySelector<HTMLImageElement>('img.__pixelated');
-  const pixelated = previousPixelated || document.createElement('img');
-  const width = Math.floor(img.width / pixelSize);
-  const height = Math.floor(img.height / pixelSize);
+function pixelate(img: HTMLImageElement, pixelSize: number): Base64ImageString {
+  const width = Math.ceil(img.width / pixelSize);
+  const height = Math.ceil(img.height / pixelSize);
 
   canvas.width = width;
   canvas.height = height;
   ctx.drawImage(img, 0, 0, width, height);
 
-  pixelated.src = canvas.toDataURL();
-  pixelated.classList.add('__pixelated');
+  return canvas.toDataURL();
+}
+
+function instantiatePixelatedHover(wrap: HTMLElement) {
+  const img = wrap.querySelector<HTMLImageElement>('img:first-child');
+  if (!img) return;
+  img.addEventListener('load', () => updatePixelatedHover(wrap, img));
+}
+
+function updatePixelatedHover(wrap: HTMLElement, img: HTMLImageElement) {
+  const pixelSize = +(wrap.dataset.pixelatedHover) || 20;
+  const previousPixelated = wrap.querySelector<HTMLImageElement>('img.__pixelated-hover-mask');
+  const pixelated = previousPixelated || document.createElement('img');
+
+  pixelated.src = pixelate(img, pixelSize);
+  pixelated.classList.add('__pixelated-hover-mask');
 
   if (!previousPixelated) {
-    container.appendChild(pixelated);
+    wrap.appendChild(pixelated);
   }
 }
+
+instancesToPixelate.forEach(instantiatePixelatedHover);
+
+export {
+  instantiatePixelatedHover,
+  updatePixelatedHover,
+  pixelate,
+};
